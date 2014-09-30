@@ -158,13 +158,21 @@ $(function () {
     }
   }
 
+  function getxy(e) {
+    if ( e.pageX == undefined ) {
+      e = e.originalEvent.changedTouches[0];
+    }
+    return {x: e.pageX, y: e.pageY};
+  }
+
   var touch;
   function ontouchstart(e) {
-    touch = {x: e.pageX, y: e.pageY};
+    touch = getxy(e);
   }
 
   function ontouchend(e) {
-    var x = e.pageX - touch.x, y = e.pageY - touch.y;
+    var n = getxy(e);
+    var x = n.x - touch.x, y = n.y - touch.y;
          if ( y >= -x && y <  x ) game.operate(directions.r);
     else if ( y >=  x && y > -x ) game.operate(directions.d);
     else if ( y <= -x && y >  x ) game.operate(directions.l);
@@ -191,6 +199,8 @@ $(function () {
     body.off("mouseup touchend", ontouchend);
     $("#death").show().find(".text").text("length: " + len);
   }
+
+  $(document.body).on("touchmove", function (e) { e.preventDefault(); });
 
   $(".game").click(function() {
     start();
