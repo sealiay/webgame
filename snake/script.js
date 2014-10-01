@@ -19,11 +19,13 @@
 
   function draw(pt, fg) {
     var x = pt.x * pix + border + 2, y = pt.y * pix + border + 2;
+    var o = 2;
+    var i = 2;
     ctx.fillStyle = fg;
-    ctx.fillRect(x, y, pix-3, pix-3);
-    ctx.lineWidth = 3;
+    ctx.fillRect(x, y, pix-o, pix-o);
+    ctx.lineWidth = o;
     ctx.strokeStyle = bgcolor;
-    ctx.strokeRect(x+5, y+5, pix-13, pix-13);
+    ctx.strokeRect(x+i, y+i, pix-o-2*i, pix-o-2*i);
   }
   function pt2idx(pt) { return pt.x * edge + pt.y; }
   function idx2pt(i) { return {x: Math.floor(i/edge), y: i%edge}; }
