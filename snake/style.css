@@ -1,14 +1,1 @@
 
-
-#start {
-  width: 100px;
-  height: 50px;
-  background: red;
-}
-
-#death {
-  width: 100px;
-  height: 50px;
-  background: green;
-  display: none;
-}
