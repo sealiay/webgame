@@ -1,1 +1,24 @@
 
+#game-start {
+  margin-top: -200px;
+  position: relative;
+}
+
+#game-death {
+  margin-top: -295px;
+  position: relative;
+}
+
+#game-death>div.game-play, #game-death>div.game-share {
+  display: inline-block;
+}
+
+#game-box {
+  background: url("/images/box.png");
+  width: 274px;
+  height: 219px;
+  margin: auto;
+  font-size: 20px;
+  font-family: microsoft yahei;
+}
+

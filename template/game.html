@@ -4,9 +4,9 @@
     <div class="game-play"><img ng-src="{{image.start}}"></img></div>
   </div>
   <div id="game-death" class="popup" style="display: none">
-    <div ng-bind-html="trust(message)"></div>
-    <div class="game-play"><img ng-src="{{image.replay}}"></img></div>
+    <div id="game-box" ng-bind-html="trust(message)"></div>
     <div class="game-share"><img ng-src="{{image.share}}"></img></div>
+    <div class="game-play"><img ng-src="{{image.replay}}"></img></div>
   </div>
   <div ng-include="load(name)"></div>
 </div>

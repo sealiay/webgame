@@ -6,9 +6,13 @@
   var pix = 23, edge = 13;
   var block = edge * edge;
   var border = 5;
-  var time = 100;
+  var time = 200;
   var size = edge * pix + 2 + border * 2;
   var bgcolor = "#9eac88", fgcolor = "#869375";
+  var message = '<div style="padding-top: 105px">' +
+    '您的长度是<span style="color: red"> %l </span>厘米<br>' +
+    '击败了全国<span style="color: green"> %p% </span>的人<br>' +
+    '获得称号 %s</div>';
 
   canvas.width = size;
   canvas.height = size;
@@ -80,7 +84,11 @@
 
     function death() {
       interval = clearInterval(interval);
-      web.apply("message", "<p>length: " + snake.size() + "</p>");
+      var len = snake.size(), str = message;
+      str = str.replace("%l", len);
+      str = str.replace("%p", Math.min(99, Math.floor(Math.log(len-4)/0.028)));
+      str = str.replace("%s", "bad ass");
+      web.apply("message", str);
       web.death();
     }
 
