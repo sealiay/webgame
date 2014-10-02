@@ -12,6 +12,7 @@
     '您的长度是<span style="color: red"> %l </span>厘米<br>' +
     '击败了全国<span style="color: green"> %p% </span>的人<br>' +
     '获得称号 "%s"</div>';
+  var title = "复古版贪吃蛇 | 我的蛇长度%l，击败了全国%p%的人，你的呢？";
 
   canvas.width = size;
   canvas.height = size;
@@ -91,8 +92,10 @@
     function death() {
       clearInterval(interval);
       var len = snake.size(), str = message;
+      var per = Math.min(99, Math.floor(Math.log(Math.max(len, 5) - 4)/0.028));
+      
       str = str.replace("%l", len);
-      str = str.replace("%p", Math.min(99, Math.floor(Math.log(Math.max(len, 5) - 4)/0.028)));
+      str = str.replace("%p", per);
       if (len <= 6)
         str = str.replace("%s", "人穷智短");
       else if (len <= 8)
@@ -108,6 +111,8 @@
       else
         str = str.replace("%s", "风驰电掣");
       web.apply("message", str);
+      
+      web.apply("title", title.replace("%l", len).replace("%p", per), "root");
       web.death();
     }
 
@@ -138,6 +143,8 @@
 
   new Game().init();
 
+  web.apply("title", "复古版贪吃蛇", "root");
+  web.apply("icon", "/images/icon.png", "root");
   web.apply("image", {
     start : "/images/start.png",
     replay: "/images/replay.png",

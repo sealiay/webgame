@@ -16,15 +16,15 @@ window.web = window.web || {};
   });
 
   site.directive('gameController', function () {
-    function controller($scope, $location, $timeout, $sce) {
+    function controller($scope, $location, $timeout, $sce, $rootScope) {
       var path = $location.path();
       $scope.name = path.substr(1, path.length-6);
 
       $scope.load = function(name) { return "/" + name + "/main.html"; };
       $scope.trust = function(html) { return $sce.trustAsHtml(html); };
 
-      web.apply = function(name, value) {
-        $timeout(function () { $scope[name] = value; });
+      web.apply = function(name, value, root) {
+        $timeout(function () { (root ? $rootScope : $scope)[name] = value; });
       }
       web.death = function() {
         $("#game-death").show();
