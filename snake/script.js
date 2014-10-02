@@ -6,7 +6,6 @@
   var pix = 23, edge = 13;
   var block = edge * edge;
   var border = 5;
-  var time = 200;
   var size = edge * pix + 2 + border * 2;
   var bgcolor = "#9eac88", fgcolor = "#869375";
   var message = '<div style="padding-top: 105px">' +
@@ -37,6 +36,7 @@
     var taken = new Array(block);
     var dirs = new Queue();
     var length = 5;
+    var time = 200;
 
     var direct = DRC.r;
     var apple = Math.floor(block / 2);
@@ -68,24 +68,28 @@
       var d = getdir();
       pt = {x: pt.x + d.x, y: pt.y + d.y};
 
-      if ( pt.x < 0 || pt.x >= edge ) return death(0);
-      if ( pt.y < 0 || pt.y >= edge ) return death(0);
+      if ( pt.x < 0 || pt.x >= edge ) return death();
+      if ( pt.y < 0 || pt.y >= edge ) return death();
 
       if ( snake.size() >= length ) pop_tail();
-      if ( taken[pt2idx(pt)] ) return death(1);
+      if ( taken[pt2idx(pt)] ) return death();
       new_head(pt);
 
-      if ( pt2idx(pt) == apple ) {
-        length += Math.max(1, Math.floor(Math.log(length)) - 1);
-        do {
-          apple = Math.floor(Math.random() * block);
-        } while ( taken[apple] );
-        draw(idx2pt(apple), "#000");
-      }
+      if ( pt2idx(pt) != apple ) return;
+      length += Math.max(1, Math.floor(Math.log(length)) - 1);
+      do {
+        apple = Math.floor(Math.random() * block);
+      } while ( taken[apple] );
+      draw(idx2pt(apple), "#000");
+
+      if ( time < 100 ) return;
+      time -= 10;
+      clearInterval(interval);
+      interval = setInterval(loop, time);
     }
 
     function death() {
-      interval = clearInterval(interval);
+      clearInterval(interval);
       var len = snake.size(), str = message;
       str = str.replace("%l", len);
       str = str.replace("%p", Math.min(99, Math.floor(Math.log(len-4)/0.028)));
