@@ -1,4 +1,13 @@
 
+body {
+  background: url("/images/bg.jpg");
+  background-size: 100% 100%;
+}
+
+#canvas {
+  padding-top: 5px;
+}
+
 #game-start {
   margin-top: -200px;
   position: relative;
