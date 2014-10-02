@@ -37,6 +37,12 @@ window.web = window.web || {};
         game.events.on();
         game.start();
       });
+      elem.find(".game-share").click(function () {
+        $("#game-share").show();
+      });
+      elem.find("#game-share").click(function () {
+        $("#game-share").hide();
+      });
     }
     return {controller: controller, link: link};
   });

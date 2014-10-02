@@ -2,11 +2,13 @@
 #game-start {
   margin-top: -200px;
   position: relative;
+  margin-bottom: 118px;
 }
 
 #game-death {
   margin-top: -295px;
   position: relative;
+  margin-bottom: 11px;
 }
 
 #game-death>div.game-play, #game-death>div.game-share {

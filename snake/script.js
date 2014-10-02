@@ -126,6 +126,7 @@
     replay: "/images/replay.png",
     share : "/images/share.png",
   });
+  web.apply("share", "测测好友的长度吧！");
 
   web.Game = Game;
 })();
