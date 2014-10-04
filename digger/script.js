@@ -3,8 +3,8 @@
 
   var ctx = canvas.getContext("2d");
 
-  var pix = 75;
   var hcount = 4, vcount = 4, count = hcount * vcount;
+  var pix = Math.floor(300 / hcount);
   var border = 5;
   var hsize = hcount * pix + 2 + border * 2;
   var vsize = vcount * pix + 2 + border * 2 + 60;
@@ -21,18 +21,18 @@
   canvas.width = hsize;
   canvas.height = vsize;
 
-  function draw(pt, fg) {
+  function draw(pt, fg, id) {
     var x = pt.x * pix + border + 2, y = pt.y * pix + border + 2 + 60;
     var o = 3;
-    var i = 3;
+    var i = 4;
     ctx.fillStyle = fg;
     ctx.fillRect(x, y, pix-o, pix-o);
     ctx.lineWidth = i;
     ctx.strokeStyle = bgcolor;
     ctx.strokeRect(x+i, y+i, pix-o-2*i, pix-o-2*i);
-    if ( typeof(fg) == "number" ) {
+    if ( id != undefined) {
       var s = 52;
-      ctx.drawImage(image, fg%7*s+1, Math.floor(fg/7)*s+1, s-2, s-2, x+i*1.5, y+i*1.5, pix-o-3*i, pix-o-3*i);
+      ctx.drawImage(image, id%7*s+1, Math.floor(id/7)*s+1, s-2, s-2, x+i*1.5, y+i*1.5, pix-o-3*i, pix-o-3*i);
     }
   }
   function pt2idx(pt) { return pt.x * vcount + pt.y; }
@@ -40,28 +40,29 @@
 
   function Game() {
     var cards = [];
-    var maxlife = 2, life = maxlife;
+    var maxlife = 30, life = maxlife + 1;
     var interval;
     var game = this;
     var previous = null, process = false;
     var left = count;
 
     function tick() {
+      --life;
       var x = 80, y = 35, w = 200, h = 20;
       ctx.fillStyle = bgcolor;
       ctx.fillRect(x, y-25, w, h);
       ctx.font="16px microsoft yahei";
       ctx.fillStyle = "#000";
       ctx.fillText("剩余挖掘时间： " + life, x, y-8);
-      ctx.strokeStyle = "#000";
+      ctx.strokeStyle = fgcolor;
+      ctx.lineWidth = 1;
       ctx.strokeRect(x, y, w, h);
-      ctx.fillStyle = bgcolor;
+      ctx.fillStyle = fgcolor;
       var s = 3;
       ctx.fillRect(x+s, y+s, w-2*s, h-2*s);
-      ctx.fillStyle = fgcolor;
+      ctx.fillStyle = "#000";
       ctx.fillRect(x+s, y+s, (w-2*s)*life/maxlife, h-2*s);
       if ( life == 0 ) return death();
-      --life;
     }
 
     this.start = function () {
@@ -104,7 +105,7 @@
         draw(card.pos, fgcolor);
         card.side = "back";
       } else {
-        draw(card.pos, card.id);
+        draw(card.pos, fgcolor, card.id);
         card.side = "front";
       }
     }
@@ -132,9 +133,9 @@
       }
 
       process = true;
-      var s = 50;
+      var s = 100;
 
-      var cnt = 4;
+      var cnt = 2;
       function blink() {
         turn(card);
         turn(previous);
