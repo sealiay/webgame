@@ -71,6 +71,12 @@ function Events(events) {
     else if ( y <=  x && y < -x ) handle(DRC.u);
   }
 
+  function onclick(e) {
+    var p = $(this).offset();
+    var handle = events.onclick;
+    handle(e.pageX - p.left, e.pageY - p.top);
+  }
+
   this.on = function () {
     if ( events.onkey ) {
       body.on("keydown", onkeydown);
@@ -78,6 +84,9 @@ function Events(events) {
     if ( events.ontouch ) {
       body.on("mousedown touchstart", ontouchstart);
       body.on("mouseup touchend", ontouchend);
+    }
+    if ( events.onclick ) {
+      $(canvas).on("click", onclick);
     }
   }
 
@@ -88,6 +97,9 @@ function Events(events) {
     if ( events.ontouch ) {
       body.off("mousedown touchstart", ontouchstart);
       body.off("mouseup touchend", ontouchend);
+    }
+    if ( events.onclick ) {
+      $(canvas).off("click", onclick);
     }
   }
 }

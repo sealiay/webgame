@@ -10,6 +10,8 @@ window.web = window.web || {};
       templateUrl: "template/home.html",
     }).when("/snake.html", {
       templateUrl: "template/game.html",
+    }).when("/digger.html", {
+      templateUrl: "template/game.html",
     }).otherwise({
       redirectTo: "/index.html",
     });
