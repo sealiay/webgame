@@ -29,15 +29,16 @@ window.web = window.web || {};
         $timeout(function () { (root ? $rootScope : $scope)[name] = value; });
       }
       web.death = function() {
+        web.game.events.off();
         $("#game-death").show();
       }
     }
     function link(scope, elem) {
       elem.find(".game-play").click(function () {
         $(".popup").hide();
-        var game = new web.Game();
-        game.events.on();
-        game.start();
+        web.game = new web.Game();
+        web.game.events.on();
+        web.game.start();
       });
       elem.find(".game-share").click(function () {
         $("#game-share").show();

@@ -110,18 +110,32 @@
       }
     }
 
+    function blink(c1, c2, cnt) {
+      var s = 100;
+      function doit() {
+        turn(c1);
+        turn(c2);
+        if ( cnt == 0 ) {
+          previous = null;
+          process = false;
+        } else {
+          setTimeout(doit, s + s*(cnt%2));
+          --cnt;
+        }
+      }
+      setTimeout(doit, s+s);
+    }
+
     function handle(x, y) {
       if ( process ) return;
-      console.log(x, y);
       x = Math.floor(Math.round(x - 7 ) / pix);
       y = Math.floor(Math.round(y - 72) / pix);
-      console.log(x, y);
       var i = pt2idx({x: x, y: y});
       var card = cards[i];
       if ( card.side != "back" ) return;
       turn(card);
 
-      if ( !previous ) {
+      if ( previous == null ) {
         previous = card;
         return;
       }
@@ -131,23 +145,8 @@
         if ( left == 0 ) death();
         return;
       }
-
       process = true;
-      var s = 100;
-
-      var cnt = 2;
-      function blink() {
-        turn(card);
-        turn(previous);
-        if ( cnt == 0 ) {
-          previous = null;
-          process = false;
-        } else {
-          setTimeout(blink, s + s*(cnt%2));
-          --cnt;
-        }
-      }
-      blink();
+      blink(card, previous, 4);
     }
 
     this.events = new Events({onclick: handle});
@@ -162,18 +161,6 @@
         draw(idx2pt(i), fgcolor);
       tick();
     };
-
-    /*
-    this.start = function() {
-      this.init();
-      for (var i = 0; i < block; ++i)
-        draw(idx2pt(i), fgcolor);
-      new_head({x: 1, y: 1});
-      draw(idx2pt(apple), "#000");
-
-      interval = setInterval(loop, time);
-    };
-    */
   };
 
   new Game().init();
