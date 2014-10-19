@@ -31,15 +31,15 @@
     var height = pix-o-3*i;
     if (id != undefined && id == -1) {
       ctx.beginPath();
-      var margin = 10;
+      var margin = 6;
       ctx.moveTo(left + margin, top + margin);
-      ctx.lineTo(left + width - margin, top + height - margin);
+      ctx.lineTo(left + margin + 10, top + margin + 10);
 
-      ctx.moveTo(left + width - margin, top + margin);
-      ctx.lineTo(left + margin, top + height - margin);
+      ctx.moveTo(left + margin, top + margin + 10);
+      ctx.lineTo(left + margin + 10, top + margin);
 
       ctx.lineWidth = 2;
-      ctx.strokeStyle = "white";
+      ctx.strokeStyle = "black";
       ctx.stroke();
       return;
     }
