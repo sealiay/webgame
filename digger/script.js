@@ -31,14 +31,14 @@
     var height = pix-o-3*i;
     if (id != undefined && id == -1) {
       ctx.beginPath();
-      var margin = 6;
+      var margin = 5;
       ctx.moveTo(left + margin, top + margin);
-      ctx.lineTo(left + margin + 10, top + margin + 10);
+      ctx.lineTo(left + margin + 12, top + margin + 12);
 
-      ctx.moveTo(left + margin, top + margin + 10);
-      ctx.lineTo(left + margin + 10, top + margin);
+      ctx.moveTo(left + margin, top + margin + 12);
+      ctx.lineTo(left + margin + 12, top + margin);
 
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 3;
       ctx.strokeStyle = "black";
       ctx.stroke();
       return;
