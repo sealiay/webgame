@@ -7,14 +7,14 @@
   <title ng-bind="title"></title>
   <link ng-href="{{icon}}" rel="shortcut icon"></link>
 
-  <!--<link href="lib/bootstrap.min.css" rel="stylesheet"></link>-->
-  <!--<link href="lib/bootstrap-theme.min.css" rel="stylesheet"></link>-->
+  <link href="lib/bootstrap.min.css" rel="stylesheet"></link>
+  <link href="lib/bootstrap-theme.min.css" rel="stylesheet"></link>
   <link href="site.css" rel="stylesheet"></link>
 </head>
 <body>
   <div style="display:none"><img ng-src="{{icon}}"></div>
   <div ng-view id="main-view"></div>
-  <footer ng-include="'template/ggad.html'"></footer>
+  <!-- <footer ng-include="'template/ggad.html'"></footer> -->
 
   <script src="lib/jquery.min.js"></script>
   <script src="lib/angular.min.js"></script>
@@ -22,7 +22,7 @@
   <!--<script src="lib/bootstrap.min.js"></script>-->
   <script src="script/helper.js"></script>
   <script src="script/site.js"></script>
-
+  <script src="http://cdn.bootcss.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>
 
