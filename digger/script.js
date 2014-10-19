@@ -25,6 +25,25 @@
     var x = pt.x * pix + border + 2, y = pt.y * pix + border + 2 + 60;
     var o = 3;
     var i = 4;
+    var left = x+i*1.5;
+    var top = y+i*1.5;
+    var width = pix-o-3*i;
+    var height = pix-o-3*i;
+    if (id != undefined && id == -1) {
+      ctx.beginPath();
+      var margin = 10;
+      ctx.moveTo(left + margin, top + margin);
+      ctx.lineTo(left + width - margin, top + height - margin);
+
+      ctx.moveTo(left + width - margin, top + margin);
+      ctx.lineTo(left + margin, top + height - margin);
+
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "white";
+      ctx.stroke();
+      return;
+    }
+
     ctx.fillStyle = fg;
     ctx.fillRect(x, y, pix-o, pix-o);
     ctx.lineWidth = i;
@@ -110,24 +129,29 @@
       }
     }
 
-    function blink(c1, c2, cnt) {
-      var s = 100;
-      function doit() {
+    function blink(c1, c2) {
+      var s = 1000;
+      draw(c1.pos, fgcolor, -1);
+      draw(c2.pos, fgcolor, -1);
+
+      function turnback() {
         turn(c1);
         turn(c2);
-        if ( cnt == 0 ) {
-          previous = null;
-          process = false;
-        } else {
-          setTimeout(doit, s + s*(cnt%2));
-          --cnt;
-        }
+        previous = null;
+        process = false;  
       }
-      setTimeout(doit, s+s);
+
+      var timeVal = setTimeout(turnback, s);
+      process = function(){
+        clearTimeout(timeVal);
+        turnback();
+      };
     }
 
     function handle(x, y) {
-      if ( process ) return;
+      if ( process ) {
+        process();
+      }
       x = Math.floor(Math.round(x - 7 ) / pix);
       y = Math.floor(Math.round(y - 72) / pix);
       var i = pt2idx({x: x, y: y});
@@ -145,8 +169,7 @@
         if ( left == 0 ) death();
         return;
       }
-      process = true;
-      blink(card, previous, 4);
+      blink(card, previous);
     }
 
     this.events = new Events({onclick: handle});
