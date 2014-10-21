@@ -1,5 +1,6 @@
 <div id="game-view" game-controller>
   <canvas id="canvas"> </canvas>
+  <div ng-include="load(game.name)"></div>
   <div id="game-start" class="popup">
     <div class="game-play"><img ng-src="{{image.start}}"></img></div>
   </div>
@@ -12,6 +13,6 @@
     <img src="/images/share-arrow.png"></img>
     <p>请点击右上角<br>点击【分享到朋友圈】<br>{{share}}</p>
   </div>
-  <div ng-include="load(game.name)"></div>
+  <div><a href="/index.html"> 更多游戏... </a></div>
 </div>
 
