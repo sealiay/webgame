@@ -32,7 +32,6 @@
 
 
   function Game() {
-    var game = this;
     var snake = new Queue(block + 5);
     var taken = new Array(block);
     var dirs = new Queue();
@@ -113,7 +112,7 @@
       web.apply("message", str);
       
       web.apply("title", title.replace("%l", len).replace("%p", per), "root");
-      web.death();
+      game.death();
     }
 
     function handler(d) { dirs.enque(d); }
@@ -152,6 +151,6 @@
   });
   web.apply("share", "测测好友的长度吧！");
 
-  web.Game = Game;
+  game.Game = Game;
 })();
 

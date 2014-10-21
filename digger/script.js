@@ -61,7 +61,6 @@
     var cards = [];
     var maxlife = 30, life = maxlife + 1;
     var interval;
-    var game = this;
     var previous = null, process = false;
     var left = count;
 
@@ -116,7 +115,7 @@
         web.apply("message", message);
         web.apply("title", title, "root");
       }
-      web.death();
+      game.death();
     }
 
     function turn(card) {
@@ -197,7 +196,7 @@
   });
   web.apply("share", "测测好友的挖掘技术吧！");
 
-  web.Game = Game;
+  game.Game = Game;
 
 })();
 

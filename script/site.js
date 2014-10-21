@@ -1,5 +1,6 @@
 
 window.web = window.web || {};
+window.game = window.game || {};
 
 (function () {
   var site = angular.module("webgame", ["ngRoute"]);
@@ -17,28 +18,37 @@ window.web = window.web || {};
     });
   });
 
-  site.directive('gameController', function () {
-    function controller($scope, $location, $timeout, $sce, $rootScope) {
-      var path = $location.path();
-      $scope.name = path.substr(1, path.length-6);
-
-      $scope.load = function(name) { return "/" + name + "/main.html"; };
+  site.directive('webController', function () {
+    function controller($scope, $timeout, $sce) {
+      $scope.web = web;
       $scope.trust = function(html) { return $sce.trustAsHtml(html); };
 
-      web.apply = function(name, value, root) {
-        $timeout(function () { (root ? $rootScope : $scope)[name] = value; });
+      web.apply = function(name, value) {
+        $timeout(function () { $scope[name] = value; });
       }
-      web.death = function() {
-        web.game.events.off();
+    }
+    return {controller: controller};
+  });
+
+  site.directive('gameController', function () {
+    function controller($scope, $location, $timeout) {
+      $scope.game = game;
+      $scope.load = function(name) { return "/" + name + "/main.html"; };
+
+      var path = $location.path();
+      game.name = path.substr(1, path.length-6);
+
+      game.death = function() {
+        game.instance.events.off();
         $("#game-death").show();
       }
     }
     function link(scope, elem) {
       elem.find(".game-play").click(function () {
         $(".popup").hide();
-        web.game = new web.Game();
-        web.game.events.on();
-        web.game.start();
+        game.instance = new game.Game();
+        game.instance.events.on();
+        game.instance.start();
       });
       elem.find(".game-share").click(function () {
         $("#game-share").show();
